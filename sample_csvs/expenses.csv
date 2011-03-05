@@ -1,0 +1,4 @@
+invoicename,timestamp,price,note,cost,user,key,projectname,projectbudget
+,2011-02-01 00:00:00,150.00,Equipment,150.000000,Ben Smith,558,Newsletter Graphics,19000.00
+,2009-09-27 00:00:00,100.00,Flash Player License,100.000000,Ben Smith,40,Newsletter Graphics,19000.00
+,2009-09-27 00:00:00,14.99,SVN Service,14.990000,Ben Smith,41,Newsletter Graphics,19000.00

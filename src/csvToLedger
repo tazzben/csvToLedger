@@ -97,7 +97,7 @@ def main():
 	global currencyvar
 	didsomething = False
 	
-	desc = 'This tool allows you to convert CSVs into a format appropriate for Ledger'
+	desc = 'This tool allows you to convert CSVs into a format appropriate for Ledger.  It\'s particularly useful when you need to specify multipart transactions.'
 	p = optparse.OptionParser(description=desc)
 	utilities = optparse.OptionGroup(p, 'Utility Options')
 	utilities.add_option('--open', '-o', dest="openfile", help="CSV file to open", default='', metavar='"<File Path>"')
@@ -107,8 +107,8 @@ def main():
 	utilities.add_option('--note', '-n', dest="notefield", help="Name of field containing transaction note", default='', metavar='"note"')
 	
 	accountsec = optparse.OptionGroup(p, 'Account Options')
-	accountsec.add_option('--accounts','-a',dest="accounts",help="Comma seperated list of accounts",default='',metavar='"Assets:Checking, Equity:Revenue"')
-	accountsec.add_option('--fields','-f',dest="fields",help="Comma seperated list of field names (in the CSV) to include with accounts",default='',metavar='"payment, tax"')
+	accountsec.add_option('--accounts','-a',dest="accounts",help="Comma separated list of accounts",default='',metavar='"Assets:Checking, Equity:Revenue"')
+	accountsec.add_option('--fields','-f',dest="fields",help="Comma separated list of field names (in the CSV) to include with accounts.  Fields prepended with a \"-\" will flip the sign of the field.",default='',metavar='"payment, tax"')
 	
 	p.add_option_group(utilities)
 	p.add_option_group(accountsec)
