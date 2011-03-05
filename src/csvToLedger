@@ -5,9 +5,16 @@ import sys
 import csv
 import codecs
 import datetime
+from dateutil.parser import parse
 import optparse
 
 currencyvar = "$"
+
+def myNewLine():
+	if platform.system() == 'Windows':
+		return "\r\n"
+	else:
+		return "\n"
 
 def isnumeric(value):
 	global currencyvar
@@ -20,9 +27,15 @@ def parseCSV(fn,debitheaders,accountheaders,notef,datef):
 	reader = csv.DictReader(f)
 	transaction = ""
 	for item in reader:
-		transaction = transaction + "\r\n" + ProcessEntry(item,debitheaders,accountheaders,notef,datef)
+		transaction = transaction + myNewLine() + ProcessEntry(item,debitheaders,accountheaders,notef,datef)
 	f.close()
 	return transaction
+
+def checkDate(mstr):
+	try:
+	 	return parse(mstr).strftime('%Y/%m/%d').strip()
+	except Exception as inst:
+		return datetime.date.today().isoformat().replace('-','/').strip()
 
 def ProcessEntry(item,dheader,accts,notef,datef):
 	accounts = []
@@ -36,7 +49,7 @@ def ProcessEntry(item,dheader,accts,notef,datef):
 		noteline = 'Transaction'
 	
 	if item.has_key(datef) and len(datef)>0:
-		dateline = item[datef].strip()
+		dateline = checkDate(item[datef].strip())
 	else:
 		currentdate = datetime.date.today().isoformat().replace('-','/').strip()
 		dateline = currentdate
@@ -47,11 +60,11 @@ def ProcessEntry(item,dheader,accts,notef,datef):
 		if item.has_key(s.strip()) and isnumeric(item[s.strip()]) and len(accounts) > count:
 			accounts[count] = accounts[count] + "\t\t" + item[s.strip()].strip()
 		elif s[0] =='-' and item.has_key(s[1:].strip()) and isnumeric(item[s[1:].strip()]) and len(accounts) > count:
-			accounts[count] = accounts[count] + "\t\t-1*" + item[s[1:].strip()].strip()
+			accounts[count] = accounts[count] + "\t\t(" + item[s[1:].strip()].strip() + " * (-1))"
 		count = count+1
 	transaction = startline
 	for s in accounts:
-		transaction = transaction + "\r\n\t" + s.strip()
+		transaction = transaction + myNewLine() + "\t" + s.strip()
 	return transaction
 
 def isCSV(myfile):
@@ -73,7 +86,7 @@ def SaveFile(transaction,myfile):
 	mf = isReturnFile(myfile)
 	if os.path.isfile(mf):
 		fout = open(mf, "a")
-		fout.write("\r\n")
+		fout.write(myNewLine())
 	else:
 		fout = open(mf, "w")
 	fout.write(transaction)
