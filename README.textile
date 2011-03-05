@@ -4,8 +4,8 @@ This tool allows you to convert CSVs into a format appropriate for "Ledger":http
 
 h2. Options:
 
-|-o "<File Path>", --open="<File Path>"|CSV file to open|
-|-s "<File Path>", --save="<File Path>"|Save output to a file|
+|-o "&lt;File Path&gt;", --open="&lt;File Path&gt;"|CSV file to open|
+|-s "&lt;File Path&gt;", --save="&lt;File Path&gt;"|Save output to a file|
 |-c "$", --currency="$"|Currency character in data|
 |-d "date", --date="date"|Name of field containing transaction date|
 |-n "note", --note="note"|Name of field containing transaction note|
