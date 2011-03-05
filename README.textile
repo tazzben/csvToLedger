@@ -75,3 +75,14 @@ h3. Example File:
 	Equity:Expenses		14.990000
 	Assets:Checking
 </pre>
+
+h2. Installing:
+
+Installing csvToLedger is pretty easy. Because Macs and Linux already include Python, all you need to do is download the csvToLedger source, decompress it, and move it wherever you want. Of course, if you use csvToLedger a lot you might want to "add your installation location to your PATH variable":http://kb.wbpsystems.com/index.php/article/setting-your-path-variable.
+
+On Windows, you need to download Python 2.x:http://www.python.org/download/ and install it before installing csvToLedger.
+
+h2. Download:
+
+Windows (Zip file): "https://github.com/tazzben/csvToLedger/blob/Release_1/dist/csvToLedger.zip":https://github.com/tazzben/csvToLedger/blob/Release_1/dist/csvToLedger.zip
+Max/Linux/Etc (tar.gz file): "https://github.com/tazzben/csvToLedger/blob/Release_1/dist/csvToLedger.tar.gz":https://github.com/tazzben/csvToLedger/blob/Release_1/dist/csvToLedger.tar.gz
