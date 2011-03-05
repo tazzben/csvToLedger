@@ -84,5 +84,5 @@ On Windows, you need to download Python 2.x:http://www.python.org/download/ and 
 
 h2. Download:
 
-Windows (Zip file): "https://github.com/tazzben/csvToLedger/blob/Release_1/dist/csvToLedger.zip":https://github.com/tazzben/csvToLedger/blob/Release_1/dist/csvToLedger.zip
-Max/Linux/Etc (tar.gz file): "https://github.com/tazzben/csvToLedger/blob/Release_1/dist/csvToLedger.tar.gz":https://github.com/tazzben/csvToLedger/blob/Release_1/dist/csvToLedger.tar.gz
+Windows (Zip file): "https://github.com/tazzben/csvToLedger/blob/Release_1/dist/csvToLedger.zip":https://github.com/tazzben/csvToLedger/blob/Release_1/dist/csvToLedger.zip?raw=true
+Max/Linux/Etc (tar.gz file): "https://github.com/tazzben/csvToLedger/blob/Release_1/dist/csvToLedger.tar.gz":https://github.com/tazzben/csvToLedger/blob/Release_1/dist/csvToLedger.tar.gz?raw=true
