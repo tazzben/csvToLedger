@@ -85,11 +85,11 @@ def isReturnFile(myfile):
 def SaveFile(transaction,myfile):
 	mf = isReturnFile(myfile)
 	if os.path.isfile(mf):
-		fout = open(mf, "a")
-		fout.write(myNewLine())
+		fout = codecs.open(mf, "a", "utf-8")
+		fout.write(unicode(myNewLine(), "utf-8"))
 	else:
-		fout = open(mf, "w")
-	fout.write(transaction)
+		fout = codecs.open(mf, "w", "utf-8")
+	fout.write(unicode(transaction,"utf-8"))
 	fout.close()
 	print 'Saved File!'	
 		
@@ -140,7 +140,7 @@ def main():
 		SaveFile(transactions,options.savefile.strip())
 		sys.exit()
 	else:
-		print transactions
+		print unicode(transactions,"utf-8")
 		sys.exit()
 		
 if __name__ == '__main__':
