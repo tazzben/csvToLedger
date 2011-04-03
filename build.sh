@@ -1,4 +1,7 @@
 #!/bin/bash
+find . -name "*.pyc" -exec rm '{}' ';'
+rm dist/csvToLedger.zip
+rm dist/csvToLedger.tar.gz
 mv src csvToLedger
 tar -pczf dist/csvToLedger.tar.gz   --exclude=".*" --exclude="/.*" --exclude="/*/.*" --exclude="*.pyc" ./csvToLedger
 mv csvToLedger/csvToLedger csvToLedger/csvToLedger.py
