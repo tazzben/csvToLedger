@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+#-*- indent-tabs-mode: t; python-indent: 8; tab-width: 4; -*-
 import os
 import platform
 import sys
@@ -21,8 +22,8 @@ def isnumeric(value):
 	return str(value).replace(",","").replace(".", "").replace("-", "").replace(currencyvar, "").strip().isdigit()
 
 def parseCSV(fn,debitheaders,accountheaders,notef,datef):
-	notef = notef.strip()
-	datef = datef.strip()
+	notef = notef
+	datef = datef
 	f = open(fn, 'rb')
 	reader = csv.DictReader(f)
 	transaction = ""
@@ -33,9 +34,9 @@ def parseCSV(fn,debitheaders,accountheaders,notef,datef):
 
 def checkDate(mstr):
 	try:
-	 	return parse(mstr).strftime('%Y/%m/%d').strip()
+	 	return parse(mstr).strftime('%Y/%m/%d')
 	except Exception as inst:
-		return datetime.date.today().isoformat().replace('-','/').strip()
+		return datetime.date.today().isoformat().replace('-','/')
 
 def ProcessEntry(item,dheader,accts,notef,datef):
 	accounts = []
@@ -57,9 +58,9 @@ def ProcessEntry(item,dheader,accts,notef,datef):
 	startline = dateline + " * " + noteline
 	count = 0
 	for s in dheader:		
-		if item.has_key(s.strip()) and isnumeric(item[s.strip()]) and len(accounts) > count:
-			accounts[count] = accounts[count] + "\t\t" + item[s.strip()].strip()
-		elif s[0] =='-' and item.has_key(s[1:].strip()) and isnumeric(item[s[1:].strip()]) and len(accounts) > count:
+		if item.has_key(s) and isnumeric(item[s]) and len(accounts) > count:
+			accounts[count] = accounts[count] + "\t\t" + item[s].strip()
+		elif s[0] =='-' and item.has_key(s[1:].strip()) and isnumeric(item[s[1:]]) and len(accounts) > count:
 			accounts[count] = accounts[count] + "\t\t(" + item[s[1:].strip()].strip() + " * (-1))"
 		count = count+1
 	transaction = startline
@@ -68,15 +69,15 @@ def ProcessEntry(item,dheader,accts,notef,datef):
 	return transaction
 
 def isCSV(myfile):
-	if os.path.isfile(os.path.expanduser(myfile.strip())):
-		return os.path.abspath(os.path.expanduser(myfile.strip()))
+	if os.path.isfile(os.path.expanduser(myfile)):
+		return os.path.abspath(os.path.expanduser(myfile))
 	else:
 		print 'The file you specified does not exist'
 		sys.exit()
 		
 def isReturnFile(myfile):
-	if os.path.abspath(os.path.expanduser(myfile.strip())) != False:
-		return os.path.abspath(os.path.expanduser(myfile.strip()))
+	if os.path.abspath(os.path.expanduser(myfile)) != False:
+		return os.path.abspath(os.path.expanduser(myfile))
 	else:
 		print 'You can\'t save to that location'
 		sys.exit()
@@ -92,7 +93,7 @@ def SaveFile(transaction,myfile):
 	fout.write(unicode(transaction,"utf-8"))
 	fout.close()
 	print 'Saved File!'	
-		
+
 def main():
 	global currencyvar
 	didsomething = False
@@ -114,30 +115,30 @@ def main():
 	p.add_option_group(accountsec)
 	(options, arguments) = p.parse_args();
 	
-	if len(options.currency.strip())>0:
-		currencyvar = options.currency.strip()
+	if len(options.currency)>0:
+		currencyvar = options.currency
 		
-	if len(options.accounts.strip())>0:
-		laccounts = options.accounts.strip().split(',')
+	if len(options.accounts)>0:
+		laccounts = options.accounts.split(',')
 	else:
 		print 'No accounts specified'
 		sys.exit()
 	
-	if len(options.fields.strip())>0:
-		lfields = options.fields.strip().split(',')
+	if len(options.fields)>0:
+		lfields = options.fields.split(',')
 	else:
 		lfields = []
 	
-	if len(options.openfile.strip())>0:
-		csvfile = isCSV(options.openfile.strip())
+	if len(options.openfile)>0:
+		csvfile = isCSV(options.openfile)
 	else:
 		print 'You must specify a file to open'
 		sys.exit()
 		
-	transactions = parseCSV(csvfile,lfields,laccounts,options.notefield.strip(),options.datefield.strip()).strip()
+	transactions = parseCSV(csvfile,lfields,laccounts,options.notefield,options.datefield).strip()
 	
-	if len(options.savefile.strip())>0:
-		SaveFile(transactions,options.savefile.strip())
+	if len(options.savefile)>0:
+		SaveFile(transactions,options.savefile)
 		sys.exit()
 	else:
 		print unicode(transactions,"utf-8")
