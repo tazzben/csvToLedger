@@ -21,6 +21,14 @@ def isnumeric(value):
 	global currencyvar
 	return str(value).replace(",","").replace(".", "").replace("-", "").replace(currencyvar, "").strip().isdigit()
 
+def find_field(d, field):
+	if field in d:
+		return d[field]
+	elif field.strip() in d:
+		return d[field.strip()]
+	else:
+		return None
+
 def parseCSV(fn,debitheaders,accountheaders,notef,datef):
 	notef = notef
 	datef = datef
@@ -44,13 +52,13 @@ def ProcessEntry(item,dheader,accts,notef,datef):
 	startline = ''
 	dateline = ''
 	noteline = ''
-	if item.has_key(notef) and len(notef)>0:
-		noteline = item[notef].strip()
+	if find_field(item, notef) and len(notef)>0:
+		noteline = find_field(item, notef).strip()
 	else:
 		noteline = 'Transaction'
 	
-	if item.has_key(datef) and len(datef)>0:
-		dateline = checkDate(item[datef].strip())
+	if find_field(item, datef) and len(datef)>0:
+		dateline = checkDate(find_field(item, datef).strip())
 	else:
 		currentdate = datetime.date.today().isoformat().replace('-','/').strip()
 		dateline = currentdate
@@ -58,10 +66,10 @@ def ProcessEntry(item,dheader,accts,notef,datef):
 	startline = dateline + " * " + noteline
 	count = 0
 	for s in dheader:		
-		if item.has_key(s) and isnumeric(item[s]) and len(accounts) > count:
-			accounts[count] = accounts[count] + "\t\t" + item[s].strip()
-		elif s[0] =='-' and item.has_key(s[1:].strip()) and isnumeric(item[s[1:]]) and len(accounts) > count:
-			accounts[count] = accounts[count] + "\t\t(" + item[s[1:].strip()].strip() + " * (-1))"
+		if find_field(item, s) and isnumeric(find_field(item,s)) and len(accounts) > count:
+			accounts[count] = accounts[count] + "\t\t" + find_field(item,s).strip()
+		elif s[0] =='-' and find_field(item,s[1:]) and isnumeric(find_field(item, s[1:])) and len(accounts) > count:
+			accounts[count] = accounts[count] + "\t\t(" + find_field(item, s[1:]).strip() + " * (-1))"
 		count = count+1
 	transaction = startline
 	for s in accounts:
